@@ -10,7 +10,8 @@ x_min = 0 #各自調整してください
 x_max = 1060
 y_min = 60
 y_max = 760
-interval = 0.5 #画面収録の間隔です
+interval = 0.5 #画面収録の間隔です[s]
+threshold = 10.0 #画面変化検知の閾値です[%]
 
 area = (x_max - x_min)*(y_max - y_min)
 
@@ -39,7 +40,7 @@ try:
         diff = im_mat - im_mat_past
         diff_per = np.count_nonzero(diff > 0) / (area*3) * 100
         print(diff_per)
-        if diff_per > 10.0 :
+        if diff_per > threshold :
             im.save('captured_'+str(j)+'.png')
             j = j + 1
             im_mat_past = im_mat
